@@ -23,8 +23,8 @@
       return {
         logining: false,
         ruleForm2: {
-          account: 'admin',
-          checkPass: '123456'
+          account: '',
+          checkPass: ''
         },
         rules2: {
           account: [
@@ -51,11 +51,14 @@
             this.logining = true;
             //NProgress.start();
             var loginParams = { username: this.ruleForm2.account, password: this.ruleForm2.checkPass };
+            console.log('loginParams',loginParams);
             requestLogin(loginParams).then(data => {
               this.logining = false;
+              console.log('code == 200 yes',data);
               //NProgress.done();
               let { msg, code, user } = data;
-              if (code !== 200) {
+              if (data.code !== 200) {
+                console.log('code !== 200 ');
                 this.$message({
                   message: msg,
                   type: 'error'

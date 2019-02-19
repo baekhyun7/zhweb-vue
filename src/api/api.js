@@ -1,8 +1,9 @@
 import axios from 'axios';
+import qs from 'qs'
 
 let base = '';
 
-export const requestLogin = params => { return axios.post(`${base}/login`, params).then(res => res.data); };
+export const requestLogin = params => { return axios.post(`http://localhost:8081/login`, qs.stringify(params)).then(res => res.data); };
 
 export const getUserList = params => { return axios.get(`${base}/user/list`, { params: params }); };
 
