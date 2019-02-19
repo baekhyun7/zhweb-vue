@@ -54,17 +54,13 @@
             console.log('loginParams',loginParams);
             requestLogin(loginParams).then(data => {
               this.logining = false;
-              console.log('code == 200 yes',data);
               //NProgress.done();
-              let { msg, code, user } = data;
-              if (data.code !== 200) {
+              //let { msg, code, user } = data;
+              if (data.code != 200) {
                 console.log('code !== 200 ');
-                this.$message({
-                  message: msg,
-                  type: 'error'
-                });
+                alert('密码或者账号错误')
               } else {
-                sessionStorage.setItem('user', JSON.stringify(user));
+                sessionStorage.setItem('token', JSON.stringify(data.data));
                 this.$router.push({ path: '/table' });
               }
             });
