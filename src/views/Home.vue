@@ -15,7 +15,7 @@
         <el-dropdown trigger="hover">
           <span class="el-dropdown-link userinfo-inner">
             <img :src="this.sysUserAvatar">
-            {{sysUserName}}
+            {{sysName}}
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>我的消息</el-dropdown-item>
@@ -155,6 +155,7 @@ export default {
       //console.log('handleclose');
     },
     handleselect: function(a, b) {},
+    
     //退出登录
     logout: function() {
       var _this = this;
@@ -162,7 +163,7 @@ export default {
         //type: 'warning'
       })
         .then(() => {
-          sessionStorage.removeItem("user");
+          sessionStorage.removeItem("token");
           _this.$router.push("/login");
         })
         .catch(() => {});
@@ -178,11 +179,11 @@ export default {
     }
   },
   mounted() {
-    var user = sessionStorage.getItem("user");
-    if (user) {
-      user = JSON.parse(user);
-      this.sysUserName = user.name || "";
-      this.sysUserAvatar = user.avatar || "";
+    var token = sessionStorage.getItem("token");
+    if (token) {
+      token = JSON.parse(token);
+      //this.sysUserName = user.name || "";
+      //this.sysUserAvatar = user.avatar || "";
     }
   }
 };
