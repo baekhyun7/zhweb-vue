@@ -10,6 +10,7 @@ import Vuex from 'vuex'
 //import NProgress from 'nprogress'
 //import 'nprogress/nprogress.css'
 import routes from './routes'
+import axios from 'axios';
 // import Mock from './mock'
 // Mock.bootstrap();
 import 'font-awesome/css/font-awesome.min.css'
@@ -22,6 +23,15 @@ Vue.use(Vuex)
 
 const router = new VueRouter({
   routes
+})
+//自动给同一个vue项目的所有请求添加请求头
+axios.interceptors.request.use(function (config) {
+  let token = sessionStorage.getItem('token');
+  console.log('token',token)
+	if (token) {
+		config.headers['Authorization'] = token;
+	}
+	return config;
 })
 
 router.beforeEach((to, from, next) => {
