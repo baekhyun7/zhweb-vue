@@ -17,4 +17,4 @@ export const editUser = params => { return axios.get(`${base}/user/edit`, { para
 
 export const addUser = params => { return axios.get(`${base}/user/add`, { params: params }); };
 
-export const advancedGeneral = params => { return axios.post(`http://localhost:8081/thingsIdentify/advancedGeneral`, qs.stringify(params)).then(res => res.data); };
+export const advancedGeneral = params => { return axios.post(`http://localhost:8081/thingsIdentify/advancedGeneral`, qs.stringify(params)) };

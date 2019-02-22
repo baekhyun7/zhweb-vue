@@ -4,7 +4,8 @@
     <el-upload
   class="upload-demo"
   drag
-  :action="go()"
+  :action="xxx"
+  :http-request="uploadimg"
   multiple>
   <i class="el-icon-upload"></i>
   <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -32,12 +33,15 @@
   import { mapGetters } from 'vuex'
   import { mapActions } from 'vuex'
   import { advancedGeneral } from '../../api/api';
+  import axios from 'axios';
 
   export default {
     data(){
       return {
          dialogVisible: false,
-         msg: ""
+         msg: "",
+         uploadurl: "http://localhost:8081/thingsIdentify/advancedGeneral",
+         
       };
     },
     computed: {
@@ -55,11 +59,13 @@
           })
           .catch(_ => {});
       },
-      go() {
-        console.log('data')
-        advancedGeneral().then(data =>{
-          console.log('data',data)
+      uploadimg(fileObject){
+        let form = new FormData() // 创建form对象
+      form.append('file', fileObject.file)
+        axios.post("http://localhost:8081/thingsIdentify/advancedGeneral",form).then(res=>{
+          console.log('form')
         })
+
       }
     }
   }
