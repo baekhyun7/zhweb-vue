@@ -1,10 +1,20 @@
 <template>
   <div>
-    <h3>通用物体识别介绍：</h3>
-    <el-upload
+    <el-carousel :interval="4000" type="card" height="200px">
+    <el-carousel-item v-for="item in dataimg" :key="item">
+        <el-col >
+          <img style="float: left;" :src="item.idView">
+              <span>{{item.txt2}}</span>
+        </el-col>
+    </el-carousel-item>
+  </el-carousel>
+    <div style="text-align:center">
+      <h3>通用物体识别介绍：<br>这个模块是当你对自己所持图片不能确定时，您可以在此窗口用来识别</h3>
+      <br><br><br>
+      <el-upload ref="upload"
   class="upload-demo"
   drag
-  :action="xxx"
+  :action="actionurl"
   :http-request="uploadimg"
   multiple>
   <i class="el-icon-upload"></i>
@@ -12,16 +22,17 @@
   <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
 </el-upload>
 
-<el-dialog
-  title="提示"
-  :visible.sync="dialogVisible"
-  width="30%"
-  :before-close="handleClose">
-  <span>这是一段信息</span>
-  <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-  </span>
+<el-button  size="small" type="primary" @click="clear">清除文件</el-button>
+    </div>
+    
+
+<el-dialog title="识别结果" :visible.sync="dialogTableVisible">
+  <el-table :data="responseData">
+    <el-table-column property="baikeInfo.description" show-overflow-tooltip label="百度信息" width="150"></el-table-column>
+    <el-table-column property="keyword" show-overflow-tooltip label="关键字" width="150"></el-table-column>
+    <el-table-column property="root" show-overflow-tooltip label="根节点" width="150"></el-table-column>
+    <el-table-column property="score" show-overflow-tooltip label="识别概率" width="150"></el-table-column>
+  </el-table>
 </el-dialog>
 
   </div>
@@ -38,10 +49,23 @@
   export default {
     data(){
       return {
-         dialogVisible: false,
-         msg: "",
-         uploadurl: "http://localhost:8081/thingsIdentify/advancedGeneral",
-         
+         dialogTableVisible: false,
+         actionurl: "",
+         message: "",
+         responseData: [],
+         dataimg: [{
+           idView: require('../../assets/picture/dish1.jpg'),
+           txt2: '一站式服务'
+         },{
+           idView: require('../../assets/picture/car.jpg'),
+           txt2: '一站式服务'
+         },{
+           idView: require('../../assets/picture/plant.jpg'),
+           txt2: '一站式服务'
+         },{
+           idView: require('../../assets/picture/animal.jpg'),
+           txt2: '一站式服务'
+         }]
       };
     },
     computed: {
@@ -63,11 +87,40 @@
         let form = new FormData() // 创建form对象
       form.append('file', fileObject.file)
         axios.post("http://localhost:8081/thingsIdentify/advancedGeneral",form).then(res=>{
-          console.log('form')
+          console.log('form',res.data)
+          if(res.data.code == 200){
+            this.dialogTableVisible=true;
+            this.responseData = res.data.data;
+          }else{
+            this.dialogTableVisible=false;
+            alert("识别失败")
+          }
+        }).catch(e => {
+          this.$notify.warning('服务器繁忙')
         })
 
+      },
+      clear(){
+        this.$refs.upload.clearFiles();
       }
     }
   }
 
 </script>
+<style>
+  .el-carousel__item h3 {
+    color: #475669;
+    font-size: 14px;
+    opacity: 0.75;
+    line-height: 200px;
+    margin: 0;
+  }
+  
+  .el-carousel__item:nth-child(2n) {
+    background-color: #99a9bf;
+  }
+  
+  .el-carousel__item:nth-child(2n+1) {
+    background-color: #d3dce6;
+  }
+</style>

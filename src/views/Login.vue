@@ -52,20 +52,17 @@
             //NProgress.start();
             var loginParams = { username: this.ruleForm2.account, password: this.ruleForm2.checkPass };
             console.log('loginParams',loginParams);
-            requestLogin(loginParams).then(data => {
+            requestLogin(loginParams).then(res => {
               this.logining = false;
-              //NProgress.done();
-              //let { msg, code, user } = data;
-              if (data.code != 200) {
-                console.log('code !== 200 ');
-                alert('密码或者账号错误')
-              } else {
-                sessionStorage.setItem('token', JSON.stringify(data.data));
+              if (res.successful) {
+                sessionStorage.setItem('token', JSON.stringify(res.data));
                 this.$router.push({ path: '/table' });
+              } else {
+                 this.$notify.error(res.message)
               }
             });
           } else {
-            console.log('error submit!!');
+            this.$notify.error('请输入正确的格式！！')
             return false;
           }
         });
