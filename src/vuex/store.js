@@ -4,11 +4,11 @@ import * as actions from './actions'
 import * as getters from './getters'
 
 Vue.use(Vuex)
-
+const key = 'user'
 // 应用初始状态
 const state = {
-    count: 10
-}
+        user: null
+},
 
 // 定义所需的 mutations
 const mutations = {
@@ -17,6 +17,14 @@ const mutations = {
     },
     DECREMENT(state) {
         state.count--
+    },
+    $_setStorage(state, value) {
+        state.user = value
+        localStorage.setItem(key,JSON.parse(value))
+    },
+    $_removeStorage(state) {
+        state.user = null
+        localStorage.removeItem(key)
     }
 }
 

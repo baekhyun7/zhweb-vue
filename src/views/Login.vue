@@ -17,6 +17,7 @@
 
 <script>
   import { requestLogin } from '../api/api';
+import { mapMutations, mapActions } from 'vuex';
   //import NProgress from 'nprogress'
   export default {
     data() {
@@ -39,6 +40,11 @@
         checked: true
       };
     },
+    mounted: {
+      ...mapActions([
+        '$_setStorage','$_removeStorage'
+      ])
+    },
     methods: {
       handleReset2() {
         this.$refs.ruleForm2.resetFields();
@@ -55,6 +61,7 @@
             requestLogin(loginParams).then(res => {
               this.logining = false;
               if (res.successful) {
+                this.$store.commit('$_setStorage',JSON.stringify(res.data))
                 sessionStorage.setItem('token', JSON.stringify(res.data));
                 this.$router.push({ path: '/table' });
               } else {
