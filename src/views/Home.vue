@@ -179,7 +179,7 @@ export default {
     }
   },
   mounted() {
-    var token = sessionStorage.getItem("token");
+    var token = localStorage.getItem("user");
     if (token) {
       token = JSON.parse(token);
       //this.sysUserName = user.name || "";

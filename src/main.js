@@ -26,7 +26,8 @@ const router = new VueRouter({
 })
 //自动给同一个vue项目的所有请求添加请求头
 axios.interceptors.request.use(function (config) {
-  let token = sessionStorage.getItem('token');
+  let token = localStorage.getItem('user');
+  console.log('localStorage',localStorage)
   console.log('token',token)
 	if (token) {
 		config.headers['Authorization'] = token;
@@ -36,11 +37,11 @@ axios.interceptors.request.use(function (config) {
 
 router.beforeEach((to, from, next) => {
   //NProgress.start();
-  if (to.path == '/login') {
-    sessionStorage.removeItem('token');
+  if (to.path == '/login' && to.path == '/register') {
+    localStorage.removeItem('user');
   }
-  let token = JSON.parse(sessionStorage.getItem('token'));
-  if (!token && to.path != '/login') {
+  let token = localStorage.getItem('user');
+  if (!token && to.path != '/login'&& to.path != '/register') {
     next({ path: '/login' })
   } else {
     next()

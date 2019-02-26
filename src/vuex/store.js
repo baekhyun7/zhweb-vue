@@ -11,18 +11,12 @@ const state = {
 },
 
 // 定义所需的 mutations
-const mutations = {
-    INCREMENT(state) {
-        state.count++
-    },
-    DECREMENT(state) {
-        state.count--
-    },
-    $_setStorage(state, value) {
+  mutations = {
+    setStorage(state, value) {
         state.user = value
-        localStorage.setItem(key,JSON.parse(value))
+        localStorage.setItem(key,JSON.stringify(value))
     },
-    $_removeStorage(state) {
+    removeStorage(state) {
         state.user = null
         localStorage.removeItem(key)
     }

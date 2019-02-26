@@ -7,7 +7,13 @@
     <el-form-item prop="checkPass">
       <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off" placeholder="密码"></el-input>
     </el-form-item>
-    <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
+    
+    
+    <el-form-item style="width:100%;">
+      <el-checkbox v-model="checked" style="float: left" checked class="remember">记住密码</el-checkbox>
+      <el-button plain style="margin-left: 210px" @click.native.prevent="register">注册</el-button>
+      
+    </el-form-item>
     <el-form-item style="width:100%;">
       <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
       <!--<el-button @click.native.prevent="handleReset2">重置</el-button>-->
@@ -17,7 +23,7 @@
 
 <script>
   import { requestLogin } from '../api/api';
-import { mapMutations, mapActions } from 'vuex';
+import { mapMutations, mapActions ,mapGetters} from 'vuex';
   //import NProgress from 'nprogress'
   export default {
     data() {
@@ -40,12 +46,18 @@ import { mapMutations, mapActions } from 'vuex';
         checked: true
       };
     },
-    mounted: {
-      ...mapActions([
-        '$_setStorage','$_removeStorage'
-      ])
+    computed: {
+      ...mapGetters([
+      'getStorage'
+    ])
     },
     methods: {
+      ...mapActions([
+        'setStorage','removeStorage'
+      ]),
+      register() {
+        this.$router.push({ path: '/register' });
+      },
       handleReset2() {
         this.$refs.ruleForm2.resetFields();
       },
@@ -61,8 +73,9 @@ import { mapMutations, mapActions } from 'vuex';
             requestLogin(loginParams).then(res => {
               this.logining = false;
               if (res.successful) {
-                this.$store.commit('$_setStorage',JSON.stringify(res.data))
-                sessionStorage.setItem('token', JSON.stringify(res.data));
+                this.$store.commit('setStorage', res.data)
+                //this.setStorage(res.data)
+               // sessionStorage.setItem('token', JSON.stringify(res.data));
                 this.$router.push({ path: '/table' });
               } else {
                  this.$notify.error(res.message)

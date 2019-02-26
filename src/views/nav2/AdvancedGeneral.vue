@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-carousel :interval="4000" type="card" height="200px">
-    <el-carousel-item v-for="item in dataimg" :key="item">
+    <el-carousel-item v-for="item in dataimg" :key="item.id">
         <el-col >
           <img style="float: left;" :src="item.idView">
               <span>{{item.txt2}}</span>
@@ -54,15 +54,19 @@
          message: "",
          responseData: [],
          dataimg: [{
+           id: 1,
            idView: require('../../assets/picture/dish1.jpg'),
            txt2: '一站式服务'
          },{
+           id: 2,
            idView: require('../../assets/picture/car.jpg'),
            txt2: '一站式服务'
          },{
+           id: 3,
            idView: require('../../assets/picture/plant.jpg'),
            txt2: '一站式服务'
          },{
+           id: 4,
            idView: require('../../assets/picture/animal.jpg'),
            txt2: '一站式服务'
          }]
@@ -70,10 +74,10 @@
     },
     computed: {
   	// 使用对象展开运算符将 getters 混入 computed 对象中
-    ...mapGetters([
-      'getCount'
+    ...mapGetters({ getStorage: 'getStorage'}
+     
       // ...
-    ])
+    )
     },
     methods: {
     handleClose(done) {
