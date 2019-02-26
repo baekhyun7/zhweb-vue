@@ -1,9 +1,11 @@
 import axios from 'axios';
 import qs from 'qs'
 
-let base = '';
+let base = 'http://localhost:8081';
 
 export const requestLogin = params => { return axios.post(`http://localhost:8081/login`, qs.stringify(params)).then(res => res.data); };
+
+export const requestRegister = params => { return axios.post(`http://localhost:8081/register`, qs.stringify(params)) };
 
 export const getUserList = params => { return axios.get(`${base}/user/list`, { params: params }); };
 
