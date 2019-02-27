@@ -30,6 +30,7 @@
 import { requestRegister } from '../api/api';
 import Axios from 'axios';
 
+
   export default {
     data() {
       var checkQq = (rule, value, callback) => {
@@ -105,14 +106,21 @@ import Axios from 'axios';
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            let loginParams = {
-              userInfoReq: this.userInfoReq};
+            let loginParams = this.userInfoReq;
             console.log('userInfoReq',loginParams)
             requestRegister(loginParams).then(res=>{
-              console.log('userInfoReq')
+              console.log('res.successful',res.data)
+              if(res.data.successful){
+                console.log('11111111111111111')
+                 this.$store.commit('setStorage', res.data.data)
+                this.$router.push({ path: '/table' });
+              }else{
+                //this.$router.push({ path: '/404' });
+                this.$notify.error(res.data)
+              }
             })
           } else {
-            console.log('error submit!!');
+             this.$notify.error("请输入正确的格式！！")
             return false;
           }
         });

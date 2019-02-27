@@ -78,7 +78,9 @@ import { mapMutations, mapActions ,mapGetters} from 'vuex';
                // sessionStorage.setItem('token', JSON.stringify(res.data));
                 this.$router.push({ path: '/table' });
               } else {
+                
                  this.$notify.error(res.message)
+                 
               }
             });
           } else {
