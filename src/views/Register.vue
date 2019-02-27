@@ -1,50 +1,69 @@
 <template>
-	<el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
-  <el-form-item label="用户名" prop="username">
-    <el-input  v-model="ruleForm2.username" auto-complete="off"></el-input>
+	<div style="margin:0 auto; width: 150 px">
+    
+    <el-form :model="userInfoReq" status-icon style="width: 300px;height: 500px;margin-left: 500px;" :rules="rules2" ref="userInfoReq" label-width="100px" class="demo-ruleForm">
+      <h2 style="margin-left: 150px">注册</h2>
+  <el-form-item label="用户名" prop="userName">
+    <el-input  v-model="userInfoReq.userName" auto-complete="off"></el-input>
   </el-form-item>
   <el-form-item label="密码" prop="password">
-    <el-input type="password" v-model="ruleForm2.password" auto-complete="off"></el-input>
+    <el-input type="password" v-model="userInfoReq.password" auto-complete="off"></el-input>
   </el-form-item>
   <el-form-item label="确认密码" prop="checkPass">
-    <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
+    <el-input type="password" v-model="userInfoReq.checkPass" auto-complete="off"></el-input>
   </el-form-item>
-  <el-form-item label="年龄" prop="age">
-    <el-input v-model.number="ruleForm2.age"></el-input>
+  <el-form-item label="qq" prop="qq">
+    <el-input v-model="userInfoReq.qq" auto-complete="off"></el-input>
+  </el-form-item>
+  <el-form-item label="电话号码" prop="telephone">
+    <el-input type="telephone" v-model="userInfoReq.telephone" auto-complete="off"></el-input>
   </el-form-item>
   <el-form-item>
-    <el-button type="primary" @click="submitForm('ruleForm2')">提交</el-button>
-    <el-button @click="resetForm('ruleForm2')">重置</el-button>
+    <el-button type="primary" @click="submitForm('userInfoReq')">提交</el-button>
+    <el-button @click="resetForm('userInfoReq')">重置</el-button>
   </el-form-item>
 </el-form>
+  </div>
 </template>
 
 <script>
 import { requestRegister } from '../api/api';
+import Axios from 'axios';
+
   export default {
     data() {
-      var checkAge = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('年龄不能为空'));
+      var checkQq = (rule, value, callback) => {
+        if (value=== '') {
+          return callback(new Error('qq不能为空'));
         }
         setTimeout(() => {
-          if (!Number.isInteger(value)) {
-            callback(new Error('请输入数字值'));
-          } else {
-            if (value < 18) {
-              callback(new Error('必须年满18岁'));
+          var exp=/^[1-9]\d{4,9}$/
+            if (!exp.test(value) ) {
+              callback(new Error('请输入正确的QQ号'));
             } else {
               callback();
-            }
           }
-        }, 1000);
+        }, 500);
+      };
+      var checkTelephone = (rule, value, callback) => {
+        if (value=== '') {
+          return callback(new Error('电话不能为空'));
+        }
+        setTimeout(() => {
+          var exp=/^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/
+            if (!exp.test(value) ) {
+              callback(new Error('请输入正确的电话号码'));
+            } else {
+              callback();
+          }
+        }, 500);
       };
       var validatePass = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请输入密码'));
         } else {
-          if (this.ruleForm2.checkPass !== '') {
-            this.$refs.ruleForm2.validateField('checkPass');
+          if (this.userInfoReq.checkPass !== '') {
+            this.$refs.userInfoReq.validateField('checkPass');
           }
           callback();
         }
@@ -52,18 +71,19 @@ import { requestRegister } from '../api/api';
       var validatePass2 = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请再次输入密码'));
-        } else if (value !== this.ruleForm2.password) {
+        } else if (value !== this.userInfoReq.password) {
           callback(new Error('两次输入密码不一致!'));
         } else {
           callback();
         }
       };
       return {
-        ruleForm2: {
-          username: '',
+        userInfoReq: {
+          userName: '',
           password: '',
           checkPass: '',
-          age: ''
+          qq: '',
+          telephone: ''
         },
         rules2: {
           pass: [
@@ -72,9 +92,12 @@ import { requestRegister } from '../api/api';
           checkPass: [
             { validator: validatePass2, trigger: 'blur' }
           ],
-          age: [
-            { validator: checkAge, trigger: 'blur' }
-          ]
+          qq: [
+            {validator: checkQq, trigger: 'blur'}
+          ],
+          telephone: [
+            {validator: checkTelephone, trigger: 'blur'}
+          ],
         }
       };
     },
@@ -82,9 +105,11 @@ import { requestRegister } from '../api/api';
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            let loginParams = this.ruleForm2;
+            let loginParams = {
+              userInfoReq: this.userInfoReq};
+            console.log('userInfoReq',loginParams)
             requestRegister(loginParams).then(res=>{
-              console.log('ruleForm2',ruleForm2)
+              console.log('userInfoReq')
             })
           } else {
             console.log('error submit!!');
@@ -93,6 +118,7 @@ import { requestRegister } from '../api/api';
         });
       },
       resetForm(formName) {
+        Axios.post
         this.$refs[formName].resetFields();
 	  },
 	  
