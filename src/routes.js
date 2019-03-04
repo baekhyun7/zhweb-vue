@@ -13,6 +13,7 @@ import CarDetect from './views/nav2/CarDetect.vue'
 import DishDetect from './views/nav2/DishDetect.vue'
 import Page6 from './views/nav3/Page6.vue'
 import echarts from './views/charts/echarts.vue'
+import userInfo from './views/userInfo/User.vue'
 
 let routes = [
     {
@@ -41,7 +42,7 @@ let routes = [
         iconCls: 'el-icon-message',//图标样式class
         children: [
             { path: '/main', component: Main, name: '主页', hidden: true },
-            { path: '/table', component: Table, name: '信息修改' , role: 'admin',hidden: false},
+            { path: '/table', component: Table, name: '信息修改', role: 'admin'},
             { path: '/form', component: Form, name: 'Form' },
             { path: '/user', component: user, name: '信息展示以及查询' },
         ]
@@ -67,6 +68,16 @@ let routes = [
         leaf: true,//只有一个节点
         children: [
             { path: '/about', component: Page6, name: '关于我们模块' }
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        name: '',
+        iconCls: 'fa fa-address-card',
+        leaf: true,//只有一个节点
+        children: [
+            { path: '/userinfo', component: userInfo, name: '人员管理模块', role: 'admin'}
         ]
     },
     {
