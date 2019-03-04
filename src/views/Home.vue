@@ -18,8 +18,8 @@
             {{sysName}}
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>我的消息</el-dropdown-item>
-            <el-dropdown-item>设置</el-dropdown-item>
+            <!-- <el-dropdown-item>我的消息</el-dropdown-item>
+            <el-dropdown-item>设置</el-dropdown-item>-->
             <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -48,20 +48,20 @@
                 v-for="child in item.children"
                 :index="child.path"
                 :key="child.path"
-                v-if="!child.hidden"
-              >{{child.name}}</el-menu-item>
+                v-if="!child.hidden && child.role == role"
+              >{{child.name}}111{{role}}{{!child.hidden }}</el-menu-item>
             </el-submenu>
             <el-menu-item v-if="item.leaf&&item.children.length>0" :index="item.children[0].path">
               <i :class="item.iconCls"></i>
-              {{item.children[0].name}}
+              {{item.children[0].name}}11
             </el-menu-item>
           </template>
         </el-menu>
         <!--导航菜单-折叠后-->
         <ul class="el-menu el-menu-vertical-demo collapsed" v-show="collapsed" ref="menuCollapsed">
           <li
-            v-for="(item,index) in $router.options.routes"
             v-if="!item.hidden"
+            v-for="(item,index) in $router.options.routes"
             class="el-submenu item"
           >
             <template v-if="!item.leaf">
@@ -128,7 +128,8 @@
 export default {
   data() {
     return {
-      sysName: "VUEADMIN",
+      sysName: JSON.parse(localStorage.getItem("user")).name,
+      role: JSON.parse(localStorage.getItem("user")).role,
       collapsed: false,
       sysUserName: "",
       sysUserAvatar: "",
@@ -149,13 +150,13 @@ export default {
       console.log("submit!");
     },
     handleopen() {
-      //console.log('handleopen');
+      console.log('handleopen',this.role);
     },
     handleclose() {
       //console.log('handleclose');
     },
     handleselect: function(a, b) {},
-    
+
     //退出登录
     logout: function() {
       var _this = this;
@@ -163,7 +164,7 @@ export default {
         //type: 'warning'
       })
         .then(() => {
-          sessionStorage.removeItem("token");
+          localStorage.removeItem("token");
           _this.$router.push("/login");
         })
         .catch(() => {});
@@ -179,9 +180,9 @@ export default {
     }
   },
   mounted() {
-    var token = localStorage.getItem("user");
+    var token = JSON.parse(localStorage.getItem("user")).token;
     if (token) {
-      token = JSON.parse(token);
+      token = token;
       //this.sysUserName = user.name || "";
       //this.sysUserAvatar = user.avatar || "";
     }

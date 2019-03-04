@@ -111,7 +111,6 @@ import Axios from 'axios';
             requestRegister(loginParams).then(res=>{
               console.log('res.successful',res.data)
               if(res.data.successful){
-                console.log('11111111111111111')
                  this.$store.commit('setStorage', res.data.data)
                 this.$router.push({ path: '/table' });
               }else{
