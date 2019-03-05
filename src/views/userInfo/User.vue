@@ -21,16 +21,17 @@
 			</el-table-column>
 			<el-table-column type="index" width="60">
 			</el-table-column>
-			<el-table-column prop="name" label="姓名" width="120" sortable>
+			<el-table-column prop="name" label="姓名" width="150" sortable>
+			</el-table-column>
+      <el-table-column prop="password" label="密码" min-width="100" sortable>
 			</el-table-column>
 			<el-table-column prop="sex" label="性别" width="100" :formatter="formatSex" sortable>
 			</el-table-column>
-			<el-table-column prop="age" label="年龄" width="100" sortable>
+			<el-table-column prop="qq" label="QQ" width="120" sortable>
 			</el-table-column>
-			<el-table-column prop="birth" label="生日" width="120" sortable>
+			<el-table-column prop="telephone" label="电话号码" width="120" sortable>
 			</el-table-column>
-			<el-table-column prop="addr" label="地址" min-width="180" sortable>
-			</el-table-column>
+			
 			<el-table-column label="操作" width="150">
 				<template slot-scope="scope">
 					<el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
@@ -159,9 +160,8 @@ export default {
       //this.listLoading = true;
       //NProgress.start();
       getUserListPage(para).then(res => {
-        this.total = res.data.total;
-        this.users = res.data.data;
-        console.log('1',res.data.total)
+        this.total = res.data.data.total;
+        this.users = res.data.data.items;
         //this.listLoading = false;
         //NProgress.done();
       });
