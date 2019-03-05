@@ -4,7 +4,7 @@
 		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
 			<el-form :inline="true" :model="filters">
 				<el-form-item>
-					<el-input v-model="filters.name" placeholder="姓名"></el-input>
+					<el-input v-model="filters.userName" placeholder="姓名"></el-input>
 				</el-form-item>
 				<el-form-item>
 					<el-button type="primary" v-on:click="getUsers">查询</el-button>
@@ -42,7 +42,7 @@
 		<!--工具条-->
 		<el-col :span="24" class="toolbar">
 			<el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">批量删除</el-button>
-			<el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="20" :total="total" style="float:right;">
+			<el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="10" :total="total" style="float:right;">
 			</el-pagination>
 		</el-col>
 
@@ -99,7 +99,7 @@ export default {
       },
       dialogFormVisible: false,
       filters: {
-        name: ""
+        userName: ""
       },
       users: [],
       total: 0,
@@ -141,14 +141,15 @@ export default {
     //获取用户列表
     getUsers() {
       let para = {
-        page: this.page,
-        name: this.filters.name
+        curPage: this.page,
+        name: this.filters.userName
       };
       //this.listLoading = true;
       //NProgress.start();
       getUserListPage(para).then(res => {
         this.total = res.data.total;
-        this.users = res.data.users;
+        this.users = res.data.data.list;
+        console.log('1',res.data.data)
         //this.listLoading = false;
         //NProgress.done();
       });

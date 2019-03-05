@@ -76,7 +76,7 @@ import { mapMutations, mapActions ,mapGetters} from 'vuex';
                 this.$store.commit('setStorage', res.data)
                 //this.setStorage(res.data)
                // sessionStorage.setItem('token', JSON.stringify(res.data));
-                this.$router.push({ path: '/table' });
+                this.$router.push({ path: '/main' });
               } else {
                 
                  this.$notify.error(res.message)

@@ -51,11 +51,11 @@
                 v-if="!child.hidden"
               >{{child.name}}</el-menu-item>
             </el-submenu>
-            <el-menu-item v-if="item.leaf&&item.children.length>0" :index="item.children[0].path">
-              <i :class="item.iconCls" v-show="ok"></i>
+            <el-menu-item v-if="item.leaf&&item.children.length>0&&!item.children[0].hidden" :index="item.children[0].path">
+              <i :class="item.iconCls"></i>
               {{item.children[0].name}}
             </el-menu-item>
-            </template>
+          </template>
         </el-menu>
         <!--导航菜单-折叠后-->
         <ul class="el-menu el-menu-vertical-demo collapsed" v-show="collapsed" ref="menuCollapsed">
@@ -151,15 +151,12 @@ export default {
     },
     handleopen() {
       console.log('handleopen',this.role);
-      console.log('handleopen',this.$router.options.routes);
     },
     handleclose() {
       //console.log('handleclose');
     },
     handleselect: function(a, b) {},
-    ok(){
-      return true;
-    },
+
     //退出登录
     logout: function() {
       var _this = this;

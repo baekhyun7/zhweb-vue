@@ -9,7 +9,7 @@ export const requestRegister = params => { return axios.post(`http://localhost:8
 
 export const getUserList = params => { return axios.get(`${base}/user/list`, { params: params }); };
 
-export const getUserListPage = params => { return axios.get(`${base}/user/listpage`, { params: params }); };
+export const getUserListPage = params => { return axios.post(`${base}/user/query`, params ); };
 
 export const removeUser = params => { return axios.get(`${base}/user/remove`, { params: params }); };
 

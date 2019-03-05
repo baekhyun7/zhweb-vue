@@ -14,6 +14,7 @@ import DishDetect from './views/nav2/DishDetect.vue'
 import Page6 from './views/nav3/Page6.vue'
 import echarts from './views/charts/echarts.vue'
 import userInfo from './views/userInfo/User.vue'
+import {checkRole,ROLE_ENUM} from './api/permission'
 
 let routes = [
     {
@@ -42,8 +43,8 @@ let routes = [
         iconCls: 'el-icon-message',//图标样式class
         children: [
             { path: '/main', component: Main, name: '主页', hidden: true },
-            { path: '/table', component: Table, name: '信息修改', role: 'admin'},
-            { path: '/form', component: Form, name: 'Form' },
+           // { path: '/table', component: Table, name: '信息修改',hidden: !checkRole(ROLE_ENUM.SYS.ADMIN)},
+            { path: '/form', component: Form, name: 'Form', hidden: checkRole(ROLE_ENUM.SYS.ADMIN)},
             { path: '/user', component: user, name: '信息展示以及查询' },
         ]
     },
@@ -67,7 +68,7 @@ let routes = [
         iconCls: 'fa fa-address-card',
         leaf: true,//只有一个节点
         children: [
-            { path: '/about', component: Page6, name: '关于我们模块' }
+            { path: '/about', component: Page6, name: '关于我们模块'}
         ]
     },
     {
@@ -77,7 +78,7 @@ let routes = [
         iconCls: 'fa fa-address-card',
         leaf: true,//只有一个节点
         children: [
-            { path: '/userinfo', component: userInfo, name: '人员管理模块', role: 'admin'}
+            { path: '/userinfo', component: userInfo, name: '人员管理模块',hidden: !checkRole(ROLE_ENUM.SYS.ADMIN)}
         ]
     },
     {

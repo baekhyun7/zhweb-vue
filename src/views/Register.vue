@@ -112,7 +112,7 @@ import Axios from 'axios';
               console.log('res.successful',res.data)
               if(res.data.successful){
                  this.$store.commit('setStorage', res.data.data)
-                this.$router.push({ path: '/table' });
+                this.$router.push({ path: '/main' });
               }else{
                 //this.$router.push({ path: '/404' });
                 this.$notify.error(res.data)
