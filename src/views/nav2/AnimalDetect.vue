@@ -28,10 +28,9 @@
 
 <el-dialog title="识别结果" :visible.sync="dialogTableVisible">
   <el-table :data="responseData">
-    <el-table-column property="baikeInfo.description" show-overflow-tooltip label="百度信息" width="150"></el-table-column>
-    <el-table-column property="keyword" show-overflow-tooltip label="关键字" width="150"></el-table-column>
-    <el-table-column property="root" show-overflow-tooltip label="根节点" width="150"></el-table-column>
-    <el-table-column property="score" show-overflow-tooltip label="识别概率" width="150"></el-table-column>
+    <el-table-column property="baikeInfo.description" show-overflow-tooltip label="百度信息" width="200"></el-table-column>
+    <el-table-column property="name" show-overflow-tooltip label="名称" width="200"></el-table-column>
+    <el-table-column property="score" show-overflow-tooltip label="识别概率" width="250"></el-table-column>
   </el-table>
 </el-dialog>
 
