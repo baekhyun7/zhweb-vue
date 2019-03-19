@@ -33,13 +33,31 @@ axios.interceptors.request.use(function (config) {
 	}
 	return config;
 })
-
+// http response 服务器响应拦截器，这里拦截401错误，并重新跳入登页重新获取token
+axios.interceptors.response.use(
+  response => {
+      return response;
+  },
+  error => {
+      if (error.response) {
+          switch (error.response.status) {
+              case 401:
+                  // 这里写清除token的代码
+                  localStorage.removeItem('token');
+                  router.replace({
+                      path: 'login',
+                  })
+          }
+      }
+      return Promise.reject(error.response.data) 
+  });
 router.beforeEach((to, from, next) => {
   //NProgress.start();
   if (to.path == '/login' && to.path == '/register') {
     localStorage.removeItem('token');
   }
   let token = JSON.parse(localStorage.getItem('user')).token;
+  console.log('token',!token)
   if (!token && to.path != '/login'&& to.path != '/register') {
     next({ path: '/login' })
   } else {

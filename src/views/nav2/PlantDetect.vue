@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-carousel :interval="4000" type="card" height="200px">
+    <el-carousel :interval="4000" type="card" height="300px">
       <el-carousel-item v-for="item in dataimg" :key="item.id">
         <el-col>
           <img style="float: left;" :src="item.idView">
@@ -64,23 +64,28 @@ export default {
       dataimg: [
         {
           id: 1,
-          idView: require("../../assets/picture/dish1.jpg"),
-          txt2: "一站式服务"
+          idView: require("../../assets/picture/plant/向日葵1.jpg"),
+          txt2: "向日葵"
         },
         {
           id: 2,
-          idView: require("../../assets/picture/car.jpg"),
-          txt2: "一站式服务"
+          idView: require("../../assets/picture/plant/油菜花1.jpg"),
+          txt2: "油菜花"
         },
         {
           id: 3,
-          idView: require("../../assets/picture/plant.jpg"),
-          txt2: "一站式服务"
+          idView: require("../../assets/picture/plant/白菜1.jpg"),
+          txt2: "白菜"
         },
         {
           id: 4,
-          idView: require("../../assets/picture/animal.jpg"),
-          txt2: "一站式服务"
+          idView: require("../../assets/picture/plant/栀子花1.jpg"),
+          txt2: "栀子花"
+        },
+        {
+          id: 5,
+          idView: require("../../assets/picture/plant/桃花1.jpg"),
+          txt2: "桃花"
         }
       ]
     };

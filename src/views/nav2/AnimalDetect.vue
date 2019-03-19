@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-carousel :interval="4000" type="card" height="200px">
+    <el-carousel :interval="4000" type="card" height="300px">
     <el-carousel-item v-for="item in dataimg" :key="item.id">
         <el-col >
           <img style="float: left;" :src="item.idView">
@@ -54,20 +54,24 @@
          responseData: [],
          dataimg: [{
            id: 1,
-           idView: require('../../assets/picture/dish1.jpg'),
-           txt2: '一站式服务'
+           idView: require('../../assets/picture/animal/哈士奇1.jpg'),
+           txt2: '哈士奇'
          },{
            id: 2,
-           idView: require('../../assets/picture/car.jpg'),
-           txt2: '一站式服务'
+           idView: require('../../assets/picture/animal/熊猫1.jpg'),
+           txt2: '熊猫'
          },{
            id: 3,
-           idView: require('../../assets/picture/plant.jpg'),
-           txt2: '一站式服务'
+           idView: require('../../assets/picture/animal/狮子1.jpg'),
+           txt2: '狮子'
          },{
            id: 4,
-           idView: require('../../assets/picture/animal.jpg'),
-           txt2: '一站式服务'
+           idView: require('../../assets/picture/animal/豹子1.jpg'),
+           txt2: '豹子'
+         },{
+           id: 5,
+           idView: require('../../assets/picture/animal/马1.jpg'),
+           txt2: '马'
          }]
       };
     },

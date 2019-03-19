@@ -27,12 +27,6 @@ export function checkRoleInList(target, roleList) {
 
 export var ROLE_ENUM = {
     SYS: {
-        ADMIN: "admin",
-        DEVICE_ADD: "device:add",
-        DEVICE_UPDATE: "device:update",
-        DEVICE_DELETE: 'device:delete',
-        DEVICE_GET: 'device:get',
-        DEVICE_DISTRIBUTE: 'device:distribute',
-        DEVICE_DISCARD: 'device:discard'
+        ADMIN: "admin"
     }
 };
