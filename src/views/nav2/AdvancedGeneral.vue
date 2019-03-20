@@ -28,10 +28,10 @@
 
 <el-dialog title="识别结果" :visible.sync="dialogTableVisible">
   <el-table :data="responseData">
-    <el-table-column property="baikeInfo.description" show-overflow-tooltip label="百度信息" width="150"></el-table-column>
-    <el-table-column property="keyword" show-overflow-tooltip label="关键字" width="150"></el-table-column>
-    <el-table-column property="root" show-overflow-tooltip label="根节点" width="150"></el-table-column>
-    <el-table-column property="score" show-overflow-tooltip label="识别概率" width="150"></el-table-column>
+    <el-table-column property="baikeInfo.description" show-overflow-tooltip label="百度信息" width="250"></el-table-column>
+    <el-table-column property="keyword" show-overflow-tooltip label="关键字" width="250"></el-table-column>
+    <el-table-column property="root" show-overflow-tooltip label="根节点" width="250"></el-table-column>
+    <el-table-column property="score" show-overflow-tooltip label="识别概率" width="250"></el-table-column>
   </el-table>
 </el-dialog>
 
@@ -55,20 +55,24 @@
          responseData: [],
          dataimg: [{
            id: 1,
-           idView: require('../../assets/picture/dish1.jpg'),
-           txt2: '一站式服务'
+           idView: require('../../assets/picture/凉粉1.jpg'),
+           txt2: '凉粉'
          },{
            id: 2,
-           idView: require('../../assets/picture/car.jpg'),
-           txt2: '一站式服务'
+           idView: require('../../assets/picture/向日葵1.jpg'),
+           txt2: '向日葵'
          },{
            id: 3,
-           idView: require('../../assets/picture/plant.jpg'),
-           txt2: '一站式服务'
+           idView: require('../../assets/picture/烤鸭1.jpg'),
+           txt2: '烤鸭'
          },{
            id: 4,
-           idView: require('../../assets/picture/animal.jpg'),
-           txt2: '一站式服务'
+           idView: require('../../assets/picture/狮子1.jpg'),
+           txt2: '狮子'
+         },{
+           id: 5,
+           idView: require('../../assets/picture/玉米1.jpg'),
+           txt2: '玉米'
          }]
       };
     },

@@ -40,9 +40,9 @@
           property="baikeInfo.description"
           show-overflow-tooltip
           label="百度信息"
-          width="320px"
+          width="800px"
         ></el-table-column>
-        <el-table-column property="score" show-overflow-tooltip label="识别概率" width="320px"></el-table-column>
+        <el-table-column property="score" show-overflow-tooltip label="识别概率" width="200px"></el-table-column>
       </el-table>
     </el-dialog>
   </div>

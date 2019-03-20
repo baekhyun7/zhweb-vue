@@ -91,7 +91,7 @@ import util from "../../common/js/util";
 import {
   getUserListPage,
   removeUser,
-  batchRemoveUser,
+  deleteUser,
   editUser,
   addUser
 } from "../../api/api";
@@ -283,7 +283,7 @@ export default {
     },
     //批量删除
     batchRemove: function() {
-      var ids = this.sels.map(item => item.id).toString();
+      var ids = this.sels.map(item => item.id);
       this.$confirm("确认删除选中记录吗？", "提示", {
         type: "warning"
       })
@@ -291,7 +291,8 @@ export default {
          // this.listLoading = true;
           //NProgress.start();
           let para = { ids: ids };
-          batchRemoveUser(para).then(res => {
+          console.log('ids',para)
+          deleteUser(ids).then(res => {
             //this.listLoading = false;
             //NProgress.done();
             this.$message({

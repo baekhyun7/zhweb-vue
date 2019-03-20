@@ -40,11 +40,11 @@
           property="baikeInfo.description"
           show-overflow-tooltip
           label="百度信息"
-          width="150"
+          width="250"
         ></el-table-column>
-        <el-table-column property="name" show-overflow-tooltip label="名称" width="150"></el-table-column>
-        <el-table-column property="calorie" show-overflow-tooltip label="卡路里" width="150"></el-table-column>
-        <el-table-column property="probability" show-overflow-tooltip label="识别概率" width="150"></el-table-column>
+        <el-table-column property="name" show-overflow-tooltip label="名称" width="250"></el-table-column>
+        <el-table-column property="calorie" show-overflow-tooltip label="卡路里" width="250"></el-table-column>
+        <el-table-column property="probability" show-overflow-tooltip label="识别概率" width="250"></el-table-column>
       </el-table>
     </el-dialog>
   </div>
