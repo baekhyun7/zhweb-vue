@@ -11,11 +11,15 @@ export const getUserList = params => { return axios.get(`${base}/user/list`, { p
 
 export const getUserListPage = params => { return axios.post(`${base}/user/query`, params ); };
 
-export const removeUser = params => { return axios.post(`${base}/user/delete`, params) };
+export const removeUser = params => { return axios.post(`${base}/user/delete`,params,{headers:{
+    'Content-Type': 'application/json;charset=UTF-8' 
+  }}) };
+
+export const getRole = params => { return axios.post(`${base}/user/getRole`, params ); };
 
 export const deleteUser = params => { return axios.post(`${base}/user/deleteUser`, params) };
 
-export const editUser = params => { return axios.get(`${base}/user/edit`, { params: params }); };
+export const update = params => { return axios.post(`${base}/user/update`, params) };
 
 export const addUser = params => { return axios.get(`${base}/user/add`, { params: params }); };
 

@@ -57,7 +57,7 @@ router.beforeEach((to, from, next) => {
     localStorage.removeItem('token');
   }
   let token = JSON.parse(localStorage.getItem('user')).token;
-  console.log('token',!token)
+  console.log('token',token)
   if (!token && to.path != '/login'&& to.path != '/register') {
     next({ path: '/login' })
   } else {

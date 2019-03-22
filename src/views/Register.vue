@@ -12,6 +12,12 @@
   <el-form-item label="确认密码" prop="checkPass">
     <el-input type="password" v-model="userInfoReq.checkPass" auto-complete="off"></el-input>
   </el-form-item>
+  <el-form-item label="性别">
+					<el-radio-group v-model="userInfoReq.sex">
+						<el-radio class="radio" :label="1">男</el-radio>
+						<el-radio class="radio" :label="0">女</el-radio>
+					</el-radio-group>
+				</el-form-item>
   <el-form-item label="qq" prop="qq">
     <el-input v-model="userInfoReq.qq" auto-complete="off"></el-input>
   </el-form-item>
@@ -83,6 +89,7 @@ import Axios from 'axios';
           userName: '',
           password: '',
           checkPass: '',
+          sex: '',
           qq: '',
           telephone: ''
         },
@@ -113,6 +120,7 @@ import Axios from 'axios';
               if(res.data.successful){
                  this.$store.commit('setStorage', res.data.data)
                 this.$router.push({ path: '/main' });
+                window.location.reload()
               }else{
                 //this.$router.push({ path: '/404' });
                 this.$notify.error(res.data)

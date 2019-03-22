@@ -77,6 +77,7 @@ import { mapMutations, mapActions ,mapGetters} from 'vuex';
                 //this.setStorage(res.data)
                // sessionStorage.setItem('token', JSON.stringify(res.data));
                 this.$router.push({ path: '/main' });
+                window.location.reload()
               } else {
                 
                  this.$notify.error(res.message)
