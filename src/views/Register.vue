@@ -1,16 +1,16 @@
 <template>
-	<div style="margin:0 auto; width: 150 px">
-    
-    <el-form :model="userInfoReq" status-icon style="width: 300px;height: 500px;margin-left: 500px;" :rules="rules2" ref="userInfoReq" label-width="100px" class="demo-ruleForm">
+<el-card class="box-card" style="margin-left: 750px;margin-right: 750px;margin-top:200px">
+  <div >
+    <el-form :model="userInfoReq" status-icon  :rules="rules2" ref="userInfoReq" label-width="100px" class="demo-ruleForm">
       <h2 style="margin-left: 150px">注册</h2>
   <el-form-item label="用户名" prop="userName">
-    <el-input  v-model="userInfoReq.userName" auto-complete="off"></el-input>
+    <el-input  v-model="userInfoReq.userName" auto-complete="off" style="width:200px"></el-input>
   </el-form-item>
   <el-form-item label="密码" prop="password">
-    <el-input type="password" v-model="userInfoReq.password" auto-complete="off"></el-input>
+    <el-input type="password" v-model="userInfoReq.password" auto-complete="off" style="width:200px"></el-input>
   </el-form-item>
   <el-form-item label="确认密码" prop="checkPass">
-    <el-input type="password" v-model="userInfoReq.checkPass" auto-complete="off"></el-input>
+    <el-input type="password" v-model="userInfoReq.checkPass" auto-complete="off" style="width:200px"></el-input>
   </el-form-item>
   <el-form-item label="性别">
 					<el-radio-group v-model="userInfoReq.sex">
@@ -19,10 +19,10 @@
 					</el-radio-group>
 				</el-form-item>
   <el-form-item label="qq" prop="qq">
-    <el-input v-model="userInfoReq.qq" auto-complete="off"></el-input>
+    <el-input v-model="userInfoReq.qq" auto-complete="off" style="width:200px"></el-input>
   </el-form-item>
   <el-form-item label="电话号码" prop="telephone">
-    <el-input type="telephone" v-model="userInfoReq.telephone" auto-complete="off"></el-input>
+    <el-input type="telephone" v-model="userInfoReq.telephone" auto-complete="off" style="width:200px"></el-input>
   </el-form-item>
   <el-form-item>
     <el-button type="primary" @click="submitForm('userInfoReq')">提交</el-button>
@@ -30,6 +30,8 @@
   </el-form-item>
 </el-form>
   </div>
+</el-card>
+	
 </template>
 
 <script>

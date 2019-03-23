@@ -31,7 +31,7 @@
         <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
       </el-upload>
 
-      <el-button size="small" type="primary" @click="clear">清除文件</el-button>
+      <el-button size="small" type="primary" @click="clear"><i class="el-icon-delete"></i>清除文件</el-button>
     </div>
 
     <el-dialog title="识别结果" :visible.sync="dialogTableVisible">
