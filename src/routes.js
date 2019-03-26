@@ -3,7 +3,6 @@ import Register from './views/Register.vue'
 import NotFound from './views/404.vue'
 import Home from './views/Home.vue'
 import Main from './views/Main.vue'
-import Table from './views/nav1/Table.vue'
 import Form from './views/nav1/Form.vue'
 import user from './views/nav1/user.vue'
 import PlantDetect from './views/nav2/PlantDetect.vue'
@@ -12,8 +11,9 @@ import AnimalDetect from './views/nav2/AnimalDetect.vue'
 import CarDetect from './views/nav2/CarDetect.vue'
 import DishDetect from './views/nav2/DishDetect.vue'
 import Page6 from './views/nav3/Page6.vue'
-import echarts from './views/charts/echarts.vue'
 import userInfo from './views/userInfo/User.vue'
+import article from './views/article/Article.vue'
+import articleDetail from './views/article/articleDetail.vue'
 import {checkRole,ROLE_ENUM} from './api/permission'
 
 let routes = [
@@ -43,8 +43,8 @@ let routes = [
         iconCls: 'el-icon-message',//图标样式class
         children: [
             { path: '/main', component: Main, name: '主页', hidden: true },
-           // { path: '/table', component: Table, name: '信息修改',hidden: !checkRole(ROLE_ENUM.SYS.ADMIN)},
-            { path: '/form', component: Form, name: 'Form', hidden: checkRole(ROLE_ENUM.SYS.ADMIN)},
+           // { path: '/table', component: Table, name: '信息修改',hidden: checkRole(ROLE_ENUM.SYS.ADMIN)},
+            { path: '/form', component: Form, name: 'Form',hidden: checkRole(ROLE_ENUM.SYS.ADMIN)},
             { path: '/user', component: user, name: '信息展示以及查询' },
         ]
     },
@@ -78,7 +78,19 @@ let routes = [
         iconCls: 'fa fa-address-card',
         leaf: true,//只有一个节点
         children: [
+            //,hidden: !checkRole(ROLE_ENUM.SYS.ADMIN)
             { path: '/userinfo', component: userInfo, name: '人员管理模块',hidden: !checkRole(ROLE_ENUM.SYS.ADMIN)}
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        name: '',
+        iconCls: 'fa fa-address-card',
+        leaf: true,//只有一个节点
+        children: [
+            { path: '/article', component: article, name: '文章模块'},
+            { path: '/articleDetail', component: articleDetail, name: '文章详情模块'}
         ]
     },
     {

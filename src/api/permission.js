@@ -3,6 +3,9 @@
  * @param target 要校验是否存在的权限，若为一个对象，其中一个属性匹配成功即返回ture
  */
 export function checkRole(target) {
+    if(localStorage.getItem('user') == null){
+        return false;
+    }
     var roleList = JSON.parse(localStorage.getItem('user')).role;
     console.log('2',roleList)
     console.log('2',checkRoleInList(target,roleList))

@@ -24,3 +24,13 @@ export const update = params => { return axios.post(`${base}/user/update`, param
 export const addUser = params => { return axios.get(`${base}/user/add`, { params: params }); };
 
 export const advancedGeneral = params => { return axios.post(`${base}/thingsIdentify/advancedGeneral`, qs.stringify(params)) };
+
+export const getArticleShowList = params => { return axios.post(`${base}/article/getArticleShowList`, params ); };
+
+export const getArticleShowById = params => { return axios.post(`${base}/article/getArticleShowById`, params,{headers:{
+  'Content-Type': 'application/json;charset=UTF-8' 
+}} ); };
+
+export const addArticle = params => { return axios.post(`${base}/article/addArticle`, params ); };
+
+export const praiseClicksAddOne = params => { return axios.post(`${base}/article/praiseClicksAddOne`, params ); };

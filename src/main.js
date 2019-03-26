@@ -1,4 +1,3 @@
-import babelpolyfill from 'babel-polyfill'
 import Vue from 'vue'
 import App from './App'
 import ElementUI from 'element-ui'
@@ -14,10 +13,17 @@ import axios from 'axios';
 // import Mock from './mock'
 // Mock.bootstrap();
 import 'font-awesome/css/font-awesome.min.css'
+import '../src/styles/style-ali/iconfont.css'
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+
+
+
 
 Vue.use(ElementUI)
 Vue.use(VueRouter)
 Vue.use(Vuex)
+Vue.use(mavonEditor)
 
 //NProgress.configure({ showSpinner: false });
 
@@ -27,13 +33,19 @@ const router = new VueRouter({
 //自动给同一个vue项目的所有请求添加请求头
 axios.interceptors.request.use(function (config) {
   let userInfo = JSON.parse(localStorage.getItem('user'));
-  let token = userInfo.token;
-	if (token) {
-		config.headers['Authorization'] = token;
-	}
-	return config;
+  if(userInfo != null){
+    let token = userInfo.token;
+    if (token) {
+      config.headers['Authorization'] = token;
+    }
+    return config;
+  }else{
+    config.headers['Authorization'] = null;
+    return config;
+  }
+  
 })
-// http response 服务器响应拦截器，这里拦截401错误，并重新跳入登页重新获取token
+//http response 服务器响应拦截器，这里拦截401错误，并重新跳入登页重新获取token
 axios.interceptors.response.use(
   response => {
       return response;
@@ -56,8 +68,8 @@ router.beforeEach((to, from, next) => {
   if (to.path == '/login' && to.path == '/register') {
     localStorage.removeItem('token');
   }
-  let token = JSON.parse(localStorage.getItem('user')).token;
-  console.log('token',token)
+  let token = JSON.parse(localStorage.getItem('user'));
+  console.log('token',!token)
   if (!token && to.path != '/login'&& to.path != '/register') {
     next({ path: '/login' })
   } else {
