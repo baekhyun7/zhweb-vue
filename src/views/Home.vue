@@ -14,12 +14,10 @@
       <el-col :span="4" class="userinfo">
         <el-dropdown trigger="hover">
           <span class="el-dropdown-link userinfo-inner">
-            <img :src="this.sysUserAvatar">
+           <i class="iconfont icon-icon-user"></i>
             {{sysName}}
           </span>
           <el-dropdown-menu slot="dropdown">
-            <!-- <el-dropdown-item>我的消息</el-dropdown-item>
-            <el-dropdown-item>设置</el-dropdown-item>-->
             <el-dropdown-item  @click.native="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -125,6 +123,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -192,6 +191,7 @@ export default {
 
 <style scoped lang="scss">
 @import "~scss_vars";
+
 
 .container {
   position: absolute;

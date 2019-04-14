@@ -34,3 +34,5 @@ export const getArticleShowById = params => { return axios.post(`${base}/article
 export const addArticle = params => { return axios.post(`${base}/article/addArticle`, params ); };
 
 export const praiseClicksAddOne = params => { return axios.post(`${base}/article/praiseClicksAddOne`, params ); };
+
+export const uploadPicture = params => { return axios.post(`${base}/article/uploadPicture`, params ); };

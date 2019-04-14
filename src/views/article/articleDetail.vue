@@ -5,7 +5,7 @@
         <label for="article-title">标题：</label>
         <input id="article-title" placeholder="请输入标题" type="text" v-model="articleReq.title">
       </div>
-      <mavon-editor class="editor"  v-model="articleReq.content"/>
+      <mavon-editor class="editor" v-model="articleReq.content" ref="md" @imgAdd="$imgAdd"/>
       <button @click="submit()">提交</button>
     </div>
 
@@ -38,16 +38,22 @@ import Vue from "vue";
 import { getParsedTime } from "../../api/index";
 //import {api, getApi, http, resCode} from "@/assets/js/api";
 import mavonEditor from "mavon-editor";
-import { getArticleShowById,addArticle,readingAmountAddOne,praiseClicksAddOne } from "../../api/api";
+import {
+  getArticleShowById,
+  addArticle,
+  readingAmountAddOne,
+  praiseClicksAddOne,
+  uploadPicture
+} from "../../api/api";
 
 export default {
   data() {
     return {
-        articleReq:{
+      articleReq: {
         title: "",
         content: "",
-        createdUserId: "",
-        },
+        createdUserId: ""
+      },
       article: {
         id: "",
         title: "",
@@ -59,7 +65,7 @@ export default {
       },
       //todo 暂定为可重复点赞，防止重复点赞时请设定为true
       praised: false,
-      
+
       getArticleCommentRo: {
         articleId: "",
         queryPage: {
@@ -68,7 +74,7 @@ export default {
         }
       },
       articleCommentList: [],
-      articleTest:{id:""},
+      articleTest: { id: "" },
       show: true
     };
   },
@@ -81,44 +87,52 @@ export default {
     }
   },
   methods: {
-      click(){
-          if (this.praised) {
-                    return;
-                }
-        this.praised = true;
-          this.article.praiseClicks=this.article.praiseClicks+1
-          let param= {id:this.article.id}
-          praiseClicksAddOne(param).then(res=>{
-          })
-      },
+    click() {
+      if (this.praised) {
+        return;
+      }
+      this.praised = true;
+      this.article.praiseClicks = this.article.praiseClicks + 1;
+      let param = { id: this.article.id };
+      praiseClicksAddOne(param).then(res => {});
+    },
+    $imgAdd(pos, $file) {
+      // 第一步.将图片上传到服务器.
+      var formdata = new FormData();
+      formdata.append("file", $file);
+      uploadPicture(formdata).then(res=> {
+        //console.log('1',res.data)
+        this.$refs.md.$img2Url(pos, res.data.data);
+      }
+      )
+    },
     getEditOrShow() {
       this.show = this.$route.query.edit;
     },
-    submit(){
-        this.articleReq.createdUserId =JSON.parse(localStorage.getItem('user')).id;
-        addArticle(this.articleReq).then(res=>{
-        })
-        
+    submit() {
+      this.articleReq.createdUserId = JSON.parse(
+        localStorage.getItem("user")
+      ).id;
+      addArticle(this.articleReq).then(res => {});
     },
     getArticle() {
       let param = { id: this.$route.query.articleId };
       this.show = this.$route.query.edit;
-      if(!this.show){
+      if (!this.show) {
         getArticleShowById(param).then(res => {
-        this.article = res.data.data;
-      });
+          this.article = res.data.data;
+        });
       }
     },
-    
+
     getCommentTime(timestamp) {
       return getParsedTime(timestamp);
     }
   },
   created() {
     this.getEditOrShow();
-     this.getArticle();
-    
-    
+    this.getArticle();
+
     // this.getArticleComment();
   }
 };
@@ -128,7 +142,7 @@ export default {
 .panel {
   margin-top: 56px;
 }
-.titletitle{
+.titletitle {
   color: red;
 }
 .panel-footer {

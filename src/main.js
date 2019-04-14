@@ -16,6 +16,7 @@ import 'font-awesome/css/font-awesome.min.css'
 import '../src/styles/style-ali/iconfont.css'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
+import './styles/style-ali/iconfont.css'
 
 
 
